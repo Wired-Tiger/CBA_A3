@@ -14,6 +14,7 @@
 
 #define IDC_ADDONS_GROUP 4301
 #define IDC_BTN_CONFIGURE_ADDONS 4302
+#define IDC_BTN_KEYBOARD_FAKE 4303
 
 #define PATHTO_SUB(var1,var2,var3,var4) MAINPREFIX\##var1\SUBPREFIX\##var2\##var3\##var4.sqf
 #define COMPILE_FILE_SUB(var1,var2,var3,var4) COMPILE_FILE2(PATHTO_SUB(var1,var2,var3,var4))

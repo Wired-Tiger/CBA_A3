@@ -15,6 +15,8 @@ if (!isNil {is3DEN} && {is3DEN}) exitWith { // bwc for linux build
     _lb lnbAddRow [localize LSTRING(canNotEdit)];
 };
 
+(_display displayCtrl IDC_BTN_CONFIGURE_ADDONS) ctrlAddEventHandler ["ButtonClick", COMPILE_FILE(gui\fnc_onButtonClick_configure)];
+
 
 
 /*

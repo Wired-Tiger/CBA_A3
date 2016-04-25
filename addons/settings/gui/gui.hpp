@@ -21,14 +21,12 @@ class RscDisplayGameOptions {
         class CBA_ButtonConfigureAddons: RscButtonMenuOK {
             idc = IDC_BTN_CONFIGURE_ADDONS;
             text = CSTRING(configureAddons);
-            onButtonClick = "systemChat 'click'";//"_this call cba_keybinding_fnc_onButtonClick_configure";
             x = "20.15 * (((safezoneW / safezoneH) min 1.2) / 40) + (safezoneX)";
             y = "23 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2))";
             w = "12.5 * (((safezoneW / safezoneH) min 1.2) / 40)";
             h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
         };
 
-        /*#define IDC_BTN_KEYBOARD_FAKE 4303
         class CBA_FakeButtonKeyboard: RscButtonMenu {
             idc = IDC_BTN_KEYBOARD_FAKE;
             text = "$STR_A3_RscDisplayConfigure_ButtonKeyboard";
@@ -36,7 +34,7 @@ class RscDisplayGameOptions {
             y = "2.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2))";
             w = "8 * (((safezoneW / safezoneH) min 1.2) / 40)";
             h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-        };*/
+        };
 
         class CBA_AddonsGroup: RscControlsGroup {
             class VScrollbar: VScrollbar {

@@ -3,10 +3,11 @@ SCRIPT(XEH_preInit);
 
 ADDON = false;
 
-// testing ...
 ["CBA_SettingChaged", {
     params ["_setting", "_value"];
-    systemChat format ["%1: %2", _setting, _value];
+
+    missionNamespace setVariable [_setting, _value];
+    systemChat format ["%1: %2", _setting, _value]; // testing ...
 }] call CBA_fnc_addEventHandler;
 
 #include "init_settings.sqf"

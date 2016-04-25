@@ -1,100 +1,114 @@
-#include "\x\cba\addons\keybinding\script_component.hpp"
+#include "script_component.hpp"
 
-// This button, when clicked, toggles between vanilla and addon control config in RscDisplayConfigure.
 disableSerialization;
-private ["_KeyboardGroup", "_MouseGroup", "_addonsGroup", "_toggleButton", "_fakeKeyboardButton", "_keyboardButton", "_mouseButton", "_controllerButton", "_title"];
+
 // Get button
 params ["_ctrl"];
+
 // Get dialog
-_display = uiNamespace getVariable "RscDisplayConfigure";
+private _display = ctrlParent _ctrl;
 
-_KeyboardGroup = _display displayctrl 2300;
-_MouseGroup = _display displayctrl 2301;
-_addonsGroup = _display displayctrl 4301;
-_toggleButton = _display displayCtrl 4302;
-_fakeKeyboardButton = _display displayctrl 4303;
+private _ctrlGeneralGroup = _display displayCtrl 2300;
+private _ctrlColorsGroup = _display displayCtrl 2301;
+private _ctrlDifficultyGroup = _display displayCtrl 2301;
+private _ctrlAddonsGroup = _display displayCtrl IDC_ADDONS_GROUP;
+private _ctrlToggleButton = _display displayCtrl IDC_BTN_CONFIGURE_ADDONS;
+private _ctrlFakeKeyboardButton = _display displayCtrl IDC_BTN_KEYBOARD_FAKE;
 
-_keyboardButton = _display displayctrl 2400;
-_mouseButton = _display displayCtrl 2401;
-_controllerButton = _display displayCtrl 106;
-_title = _display displayCtrl 1000;
+private _ctrlDifficultyButton = _display displayCtrl 304;
+private _ctrlGeneralButton = _display displayCtrl 2402;
+private _ctrlGUIButton = _display displayCtrl 2404;
+private _ctrlLayoutButton = _display displayCtrl 2405;
+private _ctrlTitle = _display displayCtrl 1000;
 
 // Toggle displayed groups and buttons.
-if !(ctrlEnabled _addonsGroup) then {
-    // Hide keyboard group
-    _KeyboardGroup ctrlenable false;
-    _KeyboardGroup ctrlshow false;
+if !(ctrlEnabled _ctrlAddonsGroup) then {
+    // Hide general group
+    _ctrlGeneralGroup ctrlEnable false;
+    _ctrlGeneralGroup ctrlShow false;
 
-    // Hide mouse group
-    _MouseGroup ctrlenable false;
-    _MouseGroup ctrlshow false;
+    // Hide colors group
+    _ctrlColorsGroup ctrlEnable false;
+    _ctrlColorsGroup ctrlShow false;
+
+    // Hide difficulty group
+    _ctrlDifficultyGroup ctrlEnable false;
+    _ctrlDifficultyGroup ctrlShow false;
 
     // Hide Presets button
-    _control = _display displayctrl 114;
-    _control ctrlenable false;
-    _control ctrlshow false;
+    private _control = _display displayCtrl 114;
+    _control ctrlEnable false;
+    _control ctrlShow false;
 
     // Hide Default button
-    _control = _display displayctrl 101;
-    _control ctrlenable false;
-    _control ctrlshow false;
+    _control = _display displayCtrl 101;
+    _control ctrlEnable false;
+    _control ctrlShow false;
 
-    // Hide mouse, keyboard, and controllers buttons
-    _mouseButton ctrlenable false;
-    _mouseButton ctrlshow false;
-    _controllerButton ctrlenable false;
-    _controllerButton ctrlshow false;
-    _keyboardButton ctrlenable false;
-    _keyboardButton ctrlshow false;
+    // Hide difficulty, general, gui, and layout buttons
+    _ctrlDifficultyButton ctrlEnable false;
+    _ctrlDifficultyButton ctrlShow false;
+    _ctrlGeneralButton ctrlEnable false;
+    _ctrlGeneralButton ctrlShow false;
+    _ctrlGUIButton ctrlEnable false;
+    _ctrlGUIButton ctrlShow false;
+    _ctrlLayoutButton ctrlEnable false;
+    _ctrlLayoutButton ctrlShow false;
 
     // Show fake keyboard button
-    _fakeKeyboardButton ctrlShow true;
-    _fakeKeyboardButton ctrlEnable true;
+    _ctrlFakeKeyboardButton ctrlEnable true;
+    _ctrlFakeKeyboardButton ctrlShow true;
 
     // Show Addons group
-    _addonsGroup ctrlenable true;
-    _addonsGroup ctrlshow true;
+    _ctrlAddonsGroup ctrlEnable true;
+    _ctrlAddonsGroup ctrlShow true;
 
     // Change button text
-    _toggleButton ctrlSetText localize LSTRING(configureBase);
+    _ctrlToggleButton ctrlSetText localize LSTRING(configureBase);
 } else {
     // Switch back to vanilla keyboard config.
     // Hide Addons group
-    _addonsGroup ctrlenable false;
-    _addonsGroup ctrlshow false;
-    _toggleButton ctrlSetText localize LSTRING(configureAddons);
+    _ctrlAddonsGroup ctrlEnable false;
+    _ctrlAddonsGroup ctrlShow false;
+    _ctrlToggleButton ctrlSetText localize LSTRING(configureAddons);
 
-    //--- Enable Keyboard
-    _KeyboardGroup ctrlenable true;
-    _KeyboardGroup ctrlshow true;
+    //--- Enable General
+    _ctrlGeneralGroup ctrlEnable true;
+    _ctrlGeneralGroup ctrlShow true;
 
-    //--- Disable Mouse
-    _MouseGroup ctrlenable false;
-    _MouseGroup ctrlshow false;
+    //--- Disable Colors
+    _ctrlColorsGroup ctrlEnable false;
+    _ctrlColorsGroup ctrlShow false;
+
+    //--- Disable Difficulty
+    _ctrlDifficultyGroup ctrlEnable false;
+    _ctrlDifficultyGroup ctrlShow false;
 
     // Hide fake keyboard button
-    _fakeKeyboardButton ctrlShow false;
-    _fakeKeyboardButton ctrlEnable false;
+    _ctrlFakeKeyboardButton ctrlEnable false;
+    _ctrlFakeKeyboardButton ctrlShow false;
 
     // Terminate any waiting input actions
     GVAR(waitingForInput) = false;
     GVAR(input) = [];
 
-    // Show mouse, keyboard, and controllers buttons
-    _mouseButton ctrlenable true;
-    _mouseButton ctrlshow true;
-    _controllerButton ctrlenable true;
-    _controllerButton ctrlshow true;
-    _keyboardButton ctrlenable true;
-    _keyboardButton ctrlshow true;
+    // Show difficulty, general, gui, and layout buttons
+    _ctrlDifficultyButton ctrlEnable true;
+    _ctrlDifficultyButton ctrlShow true;
+    _ctrlGeneralButton ctrlEnable true;
+    _ctrlGeneralButton ctrlShow true;
+    _ctrlGUIButton ctrlEnable true;
+    _ctrlGUIButton ctrlShow true;
+    _ctrlLayoutButton ctrlEnable true;
+    _ctrlLayoutButton ctrlShow true;
 
     //--- Show Presets button
-    _control = _display displayctrl 114;
-    _control ctrlenable true;
-    _control ctrlshow true;
+    private _control = _display displayCtrl 114;
+    _control ctrlEnable true;
+    _control ctrlShow true;
 
     //--- Hide Default button
-    _control = _display displayctrl 101;
-    _control ctrlenable false;
-    _control ctrlshow false;
+    _control = _display displayCtrl 101;
+    _control ctrlEnable false;
+    _control ctrlShow false;
 };
