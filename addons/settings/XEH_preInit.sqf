@@ -2,6 +2,19 @@
 SCRIPT(XEH_preInit);
 
 ADDON = false;
+
+// testing ...
+["CBA_SettingChaged", {
+    params ["_setting", "_value"];
+    systemChat format ["%1: %2", _setting, _value];
+}] call CBA_fnc_addEventHandler;
+
+#include "init_settings.sqf"
+
+ADDON = true;
+
+
+
 /*
 // Load DIK to string conversion table.
 call COMPILE_FILE(dikDecToString);
@@ -69,4 +82,3 @@ GVAR(ehCounter) = 512;
 /////////////////////////////////////////////////////////////////////////////////
 */
 // Announce initialization complete
-ADDON = true;

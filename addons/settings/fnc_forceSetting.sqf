@@ -6,7 +6,7 @@ Description:
 
 Parameters:
     _setting - Name of the setting <STRING>
-    _source  - Can be "server", "mission" or "client" (optional, default: "current") <STRING>
+    _source  - Can be "server", "mission" or "client" (optional, default: "client") <STRING>
 
 Returns:
     None
@@ -23,19 +23,23 @@ Author:
 
 if (!isServer) exitWith {};
 
-params [["_setting", "", [""]], ["_source", "current", [""]]];
+params [["_setting", "", [""]], ["_source", "client", [""]]];
 
-if (_source == "client") exitWith {
-    missionNamespace setVariable [format ["%1$PM", _setting], false, true];
-    missionNamespace setVariable [format ["%1$PS", _setting], false, true];
+if (_source == "client") then {
+    missionNamespace setVariable [[_setting, "PM"] joinString "$", false, true];
+    missionNamespace setVariable [[_setting, "PS"] joinString "$", false, true];
 };
 
-if (_source == "server") exitWith {
-    missionNamespace setVariable [format ["%1$PS", _setting], true, true];
+if (_source == "server") then {
+    missionNamespace setVariable [[_setting, "PS"] joinString "$", true, true];
 };
 
-if (_source == "mission") exitWith {
-    missionNamespace setVariable [format ["%1$PM", _setting], true, true];
+if (_source == "mission") then {
+    missionNamespace setVariable [[_setting, "PM"] joinString "$", true, true];
 };
+
+// send changed event, because the current active setting could have changed
+private _value = _setting call CBA_fnc_getSetting;
+["CBA_SettingChaged", [_setting, if (isNil "_value") then { nil } else { _value }]] call CBA_fnc_globalEvent;
 
 nil

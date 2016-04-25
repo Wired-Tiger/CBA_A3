@@ -28,9 +28,15 @@ if (isNil "_value") then {
 };
 
 if (isServer) then {
-    missionNamespace setVariable [format ["%1$S", _setting], _value, true];
+    missionNamespace setVariable [[_setting, "S"] joinString "$", _value, true];
+
+    // if the setting is forced, send changed event to remote machines
+    if (missionNamespace getVariable [[_setting, "PS"] joinString "$", false]) then {
+        ["CBA_SettingChaged", [_setting, _value]] call CBA_fnc_remoteEvent;
+    };
 };
 
 profileNamespace setVariable [_setting, _value];
+["CBA_SettingChaged", [_setting, _value]] call CBA_fnc_localEvent;
 
 nil
