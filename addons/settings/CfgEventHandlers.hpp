@@ -6,7 +6,7 @@ class Extended_PreInit_EventHandlers {
 };
 
 class Extended_DisplayLoad_EventHandlers {
-    class RscDisplayConfigure {
-        ADDON = QUOTE(_this call COMPILE_FILE(XEH_configureDisplayLoad));
+    class RscDisplayGameOptions {
+        ADDON = QUOTE(_this call COMPILE_FILE(XEH_gameOptionsDisplayLoad));
     };
 };

@@ -1,63 +1,51 @@
-#define true    1
-#define false    0
 
-// Import needed base classes.
-class RscText;
-class RscVignette;
 class RscControlsGroup {
     class VScrollbar;
     class HScrollbar;
 };
-class RscControlsGroupNoScrollbars;
-class RscFrame;
-class RscTitle;
+
+class RscText;
+class RscCombo;
+class RscListNBox;
+
 class RscButtonMenu;
 class RscButtonMenuCancel;
 class RscButtonMenuOK;
-class RscCombo;
-class RscListBox;
-class RscListNBox;
-class RscListBoxKeys;
 
-///////////////////////////////////////////////////////////////////////////////
-// ADD CONFIGURE ADDONS BUTTON TO DEFAULT CONTROLS DIALOG
-// !!! This overloads the BI onLoad value !!!
-///////////////////////////////////////////////////////////////////////////////
-
-class RscDisplayConfigure {
+class RscDisplayGameOptions {
     class controls {
-        class CA_ButtonCancel: RscButtonMenuCancel {
-            onButtonClick = "_this call cba_keybinding_fnc_onButtonClick_cancel";
+        class ButtonCancel: RscButtonMenuCancel {
+            onButtonClick = "systemChat 'cancel'";//"_this call cba_keybinding_fnc_onButtonClick_cancel";
         };
 
-        class CBA_ButtonConfigureAddons : RscButtonMenuOK {
-            idc = 4302;
+        class CBA_ButtonConfigureAddons: RscButtonMenuOK {
+            idc = IDC_BTN_CONFIGURE_ADDONS;
             text = CSTRING(configureAddons);
-            onButtonClick = "_this call cba_keybinding_fnc_onButtonClick_configure";
+            onButtonClick = "systemChat 'click'";//"_this call cba_keybinding_fnc_onButtonClick_configure";
             x = "20.15 * (((safezoneW / safezoneH) min 1.2) / 40) + (safezoneX)";
             y = "23 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2))";
             w = "12.5 * (((safezoneW / safezoneH) min 1.2) / 40)";
             h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
         };
 
-        class CBA_FakeButtonKeyboard: RscButtonMenu
-        {
-            idc = 4303;
+        /*#define IDC_BTN_KEYBOARD_FAKE 4303
+        class CBA_FakeButtonKeyboard: RscButtonMenu {
+            idc = IDC_BTN_KEYBOARD_FAKE;
             text = "$STR_A3_RscDisplayConfigure_ButtonKeyboard";
             x = "1 * (((safezoneW / safezoneH) min 1.2) / 40) + (safezoneX)";
             y = "2.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2))";
             w = "8 * (((safezoneW / safezoneH) min 1.2) / 40)";
             h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-        };
+        };*/
 
-        class CBA_AddonsGroup : RscControlsGroup {
-            class VScrollbar : VScrollbar {
+        class CBA_AddonsGroup: RscControlsGroup {
+            class VScrollbar: VScrollbar {
                 width = 0;
             };
-            class HScrollbar : HScrollbar {
+            class HScrollbar: HScrollbar {
                 height = 0;
             };
-            idc = 4301;
+            idc = IDC_ADDONS_GROUP;
             enableDisplay = 0;
             x = "1 * (((safezoneW / safezoneH) min 1.2) / 40) + (safezoneX)";
             y = "3.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + safezoneH -     (((safezoneW / safezoneH) min 1.2) / 1.2))";
@@ -65,7 +53,7 @@ class RscDisplayConfigure {
             h = "19.6 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 
             class controls {
-                class CBA_AddonsEmptyText : RscText {
+                class CBA_AddonsEmptyText: RscText {
                     idc = -1;
                     type = 0;
                     x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
@@ -74,7 +62,7 @@ class RscDisplayConfigure {
                     h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
                     text = "";
                 };
-                class CBA_AddonsEmptyBackground : RscText {
+                class CBA_AddonsEmptyBackground: RscText {
                     idc = -1;
                     type = 0;
                     text = "";
@@ -84,7 +72,7 @@ class RscDisplayConfigure {
                     w = "35 * (((safezoneW / safezoneH) min 1.2) / 40)";
                     h = "13.8 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
                 };
-                class CBA_AddonsCA_ControlsPageText : RscText {
+                class CBA_AddonsCA_ControlsPageText: RscText {
                     sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
                     style = 1;
                     idc = 2002;
@@ -94,7 +82,7 @@ class RscDisplayConfigure {
                     w = "4 * (((safezoneW / safezoneH) min 1.2) / 40)";
                     h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
                 };
-                class CBA_AddonsCA_ControlsPage : RscCombo {
+                class CBA_AddonsCA_ControlsPage: RscCombo {
                     idc = 208;
                     linespacing = 1;
                     text = "";
@@ -107,10 +95,10 @@ class RscDisplayConfigure {
                     w = "21 * (((safezoneW / safezoneH) min 1.2) / 40)";
                     h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
                 };
-                class CBA_AddonsCA_ValueKeys : RscListNBox {
+                class CBA_AddonsCA_ValueKeys: RscListNBox {
                     idc = 202;
                     columns[] = {0,0.54285};
-                    drawSideArrows = false;
+                    drawSideArrows = 0;
                     idcLeft = -1;
                     idcRight = -1;
 
@@ -122,7 +110,7 @@ class RscDisplayConfigure {
                     w = "35 * (((safezoneW / safezoneH) min 1.2) / 40)";
                     h = "13.8 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
                 };
-                class CBA_AddonsTextAction : RscText {
+                class CBA_AddonsTextAction: RscText {
                     idc = 2003;
                     text = "$STR_A3_RscDisplayConfigure_TextAction";
                     x = "0.5 * (((safezoneW / safezoneH) min 1.2) / 40)";
@@ -131,7 +119,7 @@ class RscDisplayConfigure {
                     h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
                     colorBackground[] = {0,0,0,1};
                 };
-                class CBA_AddonsTextAssignedKeys : RscText {
+                class CBA_AddonsTextAssignedKeys: RscText {
                     idc = 2004;
                     text = "$STR_A3_RscDisplayConfigure_TextAssignedKeys";
                     x = "19.48 * (((safezoneW / safezoneH) min 1.2) / 40)";
@@ -140,7 +128,7 @@ class RscDisplayConfigure {
                     h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
                     colorBackground[] = {0,0,0,1};
                 };
-                class CBA_B_Delete : RscButtonMenu {
+                class CBA_B_Delete: RscButtonMenu {
                     idc = 204;
                     text = "$STR_DISP_DELETE";
                     x = "6.85 * (((safezoneW / safezoneH) min 1.2) / 40)";
@@ -150,7 +138,7 @@ class RscDisplayConfigure {
 
                     onButtonClick = "_this call cba_keybinding_fnc_onButtonClick_delete";
                 };
-                class CBA_ButtonDefault : RscButtonMenu {
+                class CBA_ButtonDefault: RscButtonMenu {
                     idc = 205;
                     text = "$STR_DISP_DEFAULT";
                     x = "0.5 * (((safezoneW / safezoneH) min 1.2) / 40)";
